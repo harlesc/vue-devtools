@@ -554,7 +554,13 @@ function getInstanceState (instance) {
     processVuexGetters(instance),
     processFirebaseBindings(instance),
     processObservables(instance),
-    processAttrs(instance)
+    processAttrs(instance),
+    // dodgy add file name
+    instance?.$options?.__file ? [{
+      type: 'file',
+      key: 'name',
+      value: instance.$options.__file
+    }] : []
   )
 }
 
