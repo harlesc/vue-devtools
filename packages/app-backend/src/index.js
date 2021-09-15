@@ -545,6 +545,14 @@ function getInstanceDetails (id) {
 }
 
 function getInstanceState (instance) {
+  let f = [];
+  if (instance && instance.$options && instance.$options.__file) {
+    f = [{
+      type: 'file',
+      key: 'name',
+      value: instance.$options.__file
+    }];
+  }
   return processProps(instance).concat(
     processState(instance),
     processRefs(instance),
@@ -556,11 +564,7 @@ function getInstanceState (instance) {
     processObservables(instance),
     processAttrs(instance),
     // dodgy add file name
-    instance?.$options?.__file ? [{
-      type: 'file',
-      key: 'name',
-      value: instance.$options.__file
-    }] : []
+    f,
   )
 }
 
